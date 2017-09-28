@@ -32,7 +32,7 @@
             <poller class="random-interval-poller">
               <poll-interval>
                 <unit>MINUTES</unit>
-                <interval>20</interval>
+                <interval>60</interval>
               </poll-interval>
             </poller>
           </consumer>
