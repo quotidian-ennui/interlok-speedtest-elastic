@@ -1,0 +1,36 @@
+[
+  {
+    "operation": "shift",
+    "spec": {
+      "*": "&",
+      // flatten and cleanup some id's / distance.
+      "server": {
+        "lat": "location.lat",
+        "lon": "location.lon",
+        "d": "distance",
+        "id": "serverid",
+        "*": "&"
+      }
+    }
+  },
+  {
+    "operation": "remove",
+    "spec": {
+      "share": "",
+      "url": "",
+      "url2": "",
+      "country": "",
+      "cc": ""
+    }
+  },
+  {
+    "operation": "modify-overwrite-beta",
+    "spec": {
+      // Change the lat lon into doubles
+      "location": {
+        "lat": "=toDouble",
+        "lon": "=toDouble"
+      }
+    }
+  }
+]

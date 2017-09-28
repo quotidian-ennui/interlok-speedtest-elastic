@@ -4,4 +4,92 @@
     <unit>HOURS</unit>
     <interval>24</interval>
   </heartbeat-event-interval>
+  <shared-components>
+    <connections>
+      <es5-connection>
+        <unique-id>local-elasticsearch</unique-id>
+        <transport-url>${local.elastic.transporturl}</transport-url>
+        <settings>
+          <key-value-pair>
+            <key>cluster.name</key>
+            <value>${local.elastic.clustername}</value>
+          </key-value-pair>
+          <key-value-pair>
+            <key>client.transport.sniff</key>
+            <value>true</value>
+          </key-value-pair>
+        </settings>
+      </es5-connection>
+    </connections>
+  </shared-components>
+  <channel-list>
+    <channel>
+      <unique-id>SPEEDTEST_TO_ES</unique-id>
+      <workflow-list>
+        <standard-workflow>
+          <unique-id>speedtest-cli</unique-id>
+          <consumer class="polling-trigger">
+            <poller class="random-interval-poller">
+              <poll-interval>
+                <unit>MINUTES</unit>
+                <interval>20</interval>
+              </poll-interval>
+            </poller>
+          </consumer>
+          <service-collection class="service-list">
+            <services>
+              <system-command-executor>
+                <command-builder class="default-system-command-builder">
+                  <executable-path>${speedtest-cli.path}</executable-path>
+                  <arguments>
+                    <system-command-static-argument>
+                      <value>--json</value>
+                    </system-command-static-argument>
+                  </arguments>
+                  <timeout>
+                    <unit>MINUTES</unit>
+                    <interval>2</interval>
+                  </timeout>
+                </command-builder>
+                <output-capture class="system-command-overwrite-payload"/>
+              </system-command-executor>
+              <json-transform-service>
+                <unique-id>Flatten Output</unique-id>
+                <source-json class="string-payload-data-input-parameter"/>
+                <mapping-spec class="file-data-input-parameter">
+                  <destination class="configured-produce-destination">
+                    <destination>${adapter.base.url}/config/interlok-speedtest-elastic/flatten-speedtest-output.json</destination>
+                  </destination>
+                </mapping-spec>
+                <target-json class="string-payload-data-output-parameter"/>
+                <metadata-filter class="remove-all-metadata-filter"/>
+              </json-transform-service>
+              <log-message-service>
+                <include-payload>true</include-payload>
+              </log-message-service>
+              <standalone-producer>
+                <connection class="shared-connection">
+                  <lookup-name>local-elasticsearch</lookup-name>
+                </connection>
+                <producer class="es5-single-operation">
+                  <destination class="configured-produce-destination">
+                    <destination>${elastic.speedtest.index}</destination>
+                  </destination>
+                  <document-builder class="es5-json-document-builder">
+                    <type-builder class="es5-configured-type">
+                      <type>${elastic.speedtest.type}</type>
+                    </type-builder>
+                    <field-name-mapper class="es5-lowercase-field-name-mapper"/>
+                  </document-builder>
+                  <action class="es5-configured-action">
+                    <action>INDEX</action>
+                  </action>
+                </producer>
+              </standalone-producer>
+            </services>
+          </service-collection>
+        </standard-workflow>
+      </workflow-list>
+    </channel>
+  </channel-list>
 </adapter>

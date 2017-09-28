@@ -1,0 +1,57 @@
+{
+  "mappings": {
+    "speedtest": {
+      "dynamic": "strict",
+      "properties": {
+        "bytes_sent": {
+          "type": "integer"
+        },
+        "bytes_received": {
+          "type": "integer"
+        },
+        "upload": {
+          "type": "double"
+        },
+        "download": {
+          "type": "double"
+        },
+        "ping": {
+          "type": "double"
+        },
+        "latency": {
+          "type": "double"
+        },
+        "host": {
+          "type": "keyword",
+          "copy_to": [
+            "searchabletext"
+          ]
+        },
+        "name": {
+          "type": "text",
+          "copy_to": [
+            "searchabletext"
+          ]
+        },
+        "location": {
+          "type": "geo_point"
+        },
+        "serverid": {
+          "type": "keyword",
+          "copy_to": [
+            "searchabletext"
+          ]
+        },
+        "sponsor": {
+          "type": "text",
+          "copy_to": [
+            "searchabletext"
+          ]
+        },
+        "timestamp": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
