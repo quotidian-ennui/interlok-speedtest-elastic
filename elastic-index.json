@@ -18,35 +18,26 @@
         "ping": {
           "type": "double"
         },
+        "distance": {
+          "type": "double"
+        },
         "latency": {
           "type": "double"
         },
         "host": {
-          "type": "keyword",
-          "copy_to": [
-            "searchabletext"
-          ]
+          "type": "keyword"
         },
         "name": {
-          "type": "text",
-          "copy_to": [
-            "searchabletext"
-          ]
+          "type": "text"
         },
         "location": {
           "type": "geo_point"
         },
         "serverid": {
-          "type": "keyword",
-          "copy_to": [
-            "searchabletext"
-          ]
+          "type": "keyword"
         },
         "sponsor": {
-          "type": "text",
-          "copy_to": [
-            "searchabletext"
-          ]
+          "type": "text"
         },
         "timestamp": {
           "type": "date"
