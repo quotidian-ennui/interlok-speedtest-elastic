@@ -1,0 +1,7 @@
+<adapter>
+  <unique-id>${adapter.unique.id}</unique-id>
+  <heartbeat-event-interval>
+    <unit>HOURS</unit>
+    <interval>24</interval>
+  </heartbeat-event-interval>
+</adapter>
