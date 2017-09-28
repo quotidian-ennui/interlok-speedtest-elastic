@@ -46,12 +46,12 @@
                       <value>--json</value>
                     </system-command-static-argument>
                   </arguments>
-                  <timeout>
-                    <unit>MINUTES</unit>
-                    <interval>2</interval>
-                  </timeout>
                 </command-builder>
                 <output-capture class="system-command-overwrite-payload"/>
+                <timeout>
+                  <unit>MINUTES</unit>
+                  <interval>2</interval>
+                </timeout>
               </system-command-executor>
               <json-transform-service>
                 <unique-id>Flatten Output</unique-id>
