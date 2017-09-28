@@ -79,7 +79,6 @@
                     <type-builder class="es5-configured-type">
                       <type>${elastic.speedtest.type}</type>
                     </type-builder>
-                    <field-name-mapper class="es5-lowercase-field-name-mapper"/>
                   </document-builder>
                   <action class="es5-configured-action">
                     <action>INDEX</action>
