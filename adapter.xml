@@ -21,6 +21,62 @@
         </settings>
       </es5-connection>
     </connections>
+    <services>
+      <service class="service-list">
+        <unique-id>doSpeedtest</unique-id>
+        <services>
+          <system-command-executor>
+            <command-builder class="default-system-command-builder">
+              <executable-path>${speedtest-cli.path}</executable-path>
+              <arguments>
+                <system-command-static-argument>
+                  <value>--json</value>
+                </system-command-static-argument>
+              </arguments>
+            </command-builder>
+            <output-capture class="system-command-overwrite-payload"/>
+            <timeout>
+              <unit>MINUTES</unit>
+              <interval>2</interval>
+            </timeout>
+          </system-command-executor>
+          <json-transform-service>
+            <unique-id>FlattenOutput</unique-id>
+            <source-json class="string-payload-data-input-parameter"/>
+            <mapping-spec class="file-data-input-parameter">
+              <destination class="configured-produce-destination">
+                <destination>${adapter.base.url}/config/interlok-speedtest-elastic/flatten-speedtest-output.json</destination>
+              </destination>
+            </mapping-spec>
+            <target-json class="string-payload-data-output-parameter"/>
+            <metadata-filter class="remove-all-metadata-filter"/>
+          </json-transform-service>
+        </services>
+      </service>
+      <service class="service-list">
+        <unique-id>doElasticINDEX</unique-id>
+        <services>
+          <standalone-producer>
+            <connection class="shared-connection">
+              <lookup-name>local-elasticsearch</lookup-name>
+            </connection>
+            <producer class="es5-single-operation">
+              <destination class="configured-produce-destination">
+                <destination>${elastic.speedtest.index}</destination>
+              </destination>
+              <document-builder class="es5-json-document-builder">
+                <type-builder class="es5-configured-type">
+                  <type>${elastic.speedtest.type}</type>
+                </type-builder>
+              </document-builder>
+              <action class="es5-configured-action">
+                <action>INDEX</action>
+              </action>
+            </producer>
+          </standalone-producer>
+        </services>
+      </service>
+    </services>
   </shared-components>
   <channel-list>
     <channel>
@@ -38,53 +94,53 @@
           </consumer>
           <service-collection class="service-list">
             <services>
-              <system-command-executor>
-                <command-builder class="default-system-command-builder">
-                  <executable-path>${speedtest-cli.path}</executable-path>
-                  <arguments>
-                    <system-command-static-argument>
-                      <value>--json</value>
-                    </system-command-static-argument>
-                  </arguments>
-                </command-builder>
-                <output-capture class="system-command-overwrite-payload"/>
-                <timeout>
-                  <unit>MINUTES</unit>
-                  <interval>2</interval>
-                </timeout>
-              </system-command-executor>
-              <json-transform-service>
-                <unique-id>Flatten Output</unique-id>
-                <source-json class="string-payload-data-input-parameter"/>
-                <mapping-spec class="file-data-input-parameter">
-                  <destination class="configured-produce-destination">
-                    <destination>${adapter.base.url}/config/interlok-speedtest-elastic/flatten-speedtest-output.json</destination>
-                  </destination>
-                </mapping-spec>
-                <target-json class="string-payload-data-output-parameter"/>
-                <metadata-filter class="remove-all-metadata-filter"/>
-              </json-transform-service>
-              <log-message-service>
-                <include-payload>true</include-payload>
-              </log-message-service>
-              <standalone-producer>
-                <connection class="shared-connection">
-                  <lookup-name>local-elasticsearch</lookup-name>
-                </connection>
-                <producer class="es5-single-operation">
-                  <destination class="configured-produce-destination">
-                    <destination>${elastic.speedtest.index}</destination>
-                  </destination>
-                  <document-builder class="es5-json-document-builder">
-                    <type-builder class="es5-configured-type">
-                      <type>${elastic.speedtest.type}</type>
-                    </type-builder>
-                  </document-builder>
-                  <action class="es5-configured-action">
-                    <action>INDEX</action>
-                  </action>
-                </producer>
-              </standalone-producer>
+              <shared-service>
+                <lookup-name>doSpeedtest</lookup-name>
+              </shared-service>
+              <shared-service>
+                <lookup-name>doElasticINDEX</lookup-name>
+              </shared-service>
+            </services>
+          </service-collection>
+        </standard-workflow>
+      </workflow-list>
+    </channel>
+    <channel>
+      <unique-id>ON_DEMAND</unique-id>
+      <message-error-handler class="standard-processing-exception-handler">
+        <processing-exception-service class="service-list">
+          <services>
+            <exception-report-service>
+              <exception-serializer class="exception-as-json-with-stacktrace"/>
+            </exception-report-service>
+            <jetty-response-service>
+              <http-status>500</http-status>
+              <content-type>application/json</content-type>
+            </jetty-response-service>
+          </services>
+        </processing-exception-service>
+      </message-error-handler>
+      <consume-connection class="embedded-jetty-connection"/>
+      <workflow-list>
+        <standard-workflow>
+          <unique-id>speedtest</unique-id>
+          <consumer class="jetty-message-consumer">
+            <destination class="configured-consume-destination">
+              <destination>/on-demand/speedtest/*</destination>
+            </destination>
+          </consumer>
+          <service-collection class="service-list">
+            <services>
+              <shared-service>
+                <lookup-name>doSpeedtest</lookup-name>
+              </shared-service>
+              <shared-service>
+                <lookup-name>doElasticINDEX</lookup-name>
+              </shared-service>
+              <jetty-response-service>
+                <http-status>200</http-status>
+                <content-type>application/json</content-type>
+              </jetty-response-service>
             </services>
           </service-collection>
         </standard-workflow>
