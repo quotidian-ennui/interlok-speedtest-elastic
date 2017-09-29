@@ -120,7 +120,7 @@
           </services>
         </processing-exception-service>
       </message-error-handler>
-      <consume-connection class="embedded-jetty-connection"/>
+      <consume-connection class="jetty-embedded-connection"/>
       <workflow-list>
         <standard-workflow>
           <unique-id>speedtest</unique-id>
