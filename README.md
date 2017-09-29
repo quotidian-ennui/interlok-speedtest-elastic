@@ -11,4 +11,4 @@ This is clearly a case of when all you have is a hammer; everything looks like a
 
 Maybe you'll end up with something like this:
 
-[![kibana timelion](https://github.com/quotidian-ennui/interlok-speedtest-elastic/blob/master/kibana-timelion.png)()
+![kibana timelion](https://github.com/quotidian-ennui/interlok-speedtest-elastic/blob/master/kibana-timelion.png)()
