@@ -1,4 +1,4 @@
-# interlok-speedtest-elastic [![Interlok Hammer](https://img.shields.io/badge/certified-interlok%20hammer-red.svg)]()
+# interlok-speedtest-elastic ![Interlok Hammer](https://img.shields.io/badge/certified-interlok%20hammer-red.svg)
 
 This is clearly a case of when all you have is a hammer; everything looks like a nail...
 
