@@ -4,10 +4,10 @@
 
     <Console name="Console" target="SYSTEM_OUT">
       <PatternLayout>
-        <Pattern>%-5p [%t] [%c{1.}] %m%n</Pattern>
+        <Pattern>%highlight{%-5p [%t] [%c{1.}] %m%n%throwable}{FATAL=bright white, ERROR=bright red, WARN=bright yellow, INFO=magenta, DEBUG=green, TRACE=cyan}</Pattern>
       </PatternLayout>
     </Console>
-    
+
     <JmxLogAppender name="JmxLogAppender">
       <PatternLayout>
         <Pattern>%d{ISO8601} %-5p [%t] [%c{1}] %m%n</Pattern>
@@ -16,8 +16,8 @@
         <ThresholdFilter level="debug"/>
       </filters>
     </JmxLogAppender>
-    
-    <!-- 
+
+    <!--
     <RollingFile name="RollingFile" fileName="logs/log4j2-adapter.log" filePattern="logs/log4j2-adapter-%d{yyyy-MM-dd}-%i.log.gz">
       <PatternLayout>
         <Pattern>%d{ISO8601} %-5p [%t] [%c.%M()] %m%n</Pattern>
@@ -28,7 +28,7 @@
         <SizeBasedTriggeringPolicy size="250 MB"/>
       </Policies>
       <DefaultRolloverStrategy max="5" fileIndex="min"/>
-    </RollingFile>    
+    </RollingFile>
     -->
 
     <RollingFile name="RollingFile" fileName="logs/adapter.log" filePattern="logs/adapter.log.%i">
@@ -55,7 +55,7 @@
     <Logger name="org.eclipse.jetty" level="WARN"/>
     <Logger name="org.hibernate.cache" level="WARN"/>
     <Logger name="org.springframework.aop.framework.CglibAopProxy" level="ERROR"/>
-    <Logger name="org.springframework.context.support.PropertySourcesPlaceholderConfigurer" level="ERROR"/>   
+    <Logger name="org.springframework.context.support.PropertySourcesPlaceholderConfigurer" level="ERROR"/>
     <Logger name="org.hibernate.cache.EhCacheProvider" level="ERROR"/>
     <Logger name="com.mchange.v2.resourcepool.BasicResourcePool" level="ERROR"/>
     <Logger name="com.sun.jersey" level="ERROR"/>
