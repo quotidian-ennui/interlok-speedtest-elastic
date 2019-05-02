@@ -63,7 +63,6 @@
     <Logger name="com.adaptris.adaptergui.util.ClassUtils" level="FATAL"/>
 
     <Root level="TRACE">
-      <AppenderRef ref="JmxLogAppender"/>
       <AppenderRef ref="RollingFile"/>
     </Root>
   </Loggers>
