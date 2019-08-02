@@ -6,26 +6,17 @@
   </heartbeat-event-interval>
   <shared-components>
     <connections>
-      <es5-connection>
+      <elastic-rest-connection>
         <unique-id>local-elasticsearch</unique-id>
         <transport-url>${local.elastic.transporturl}</transport-url>
-        <settings>
-          <key-value-pair>
-            <key>cluster.name</key>
-            <value>${local.elastic.clustername}</value>
-          </key-value-pair>
-          <key-value-pair>
-            <key>client.transport.sniff</key>
-            <value>true</value>
-          </key-value-pair>
-        </settings>
-      </es5-connection>
+      </elastic-rest-connection>
     </connections>
     <services>
       <service class="service-list">
         <unique-id>doSpeedtest</unique-id>
         <services>
           <system-command-executor>
+            <unique-id>execute-speedtest</unique-id>
             <command-builder class="default-system-command-builder">
               <executable-path>${speedtest-cli.path}</executable-path>
               <arguments>
@@ -41,7 +32,7 @@
             </timeout>
           </system-command-executor>
           <json-transform-service>
-            <unique-id>FlattenOutput</unique-id>
+            <unique-id>flatten-json-output</unique-id>
             <source-json class="string-payload-data-input-parameter"/>
             <mapping-spec class="file-data-input-parameter">
               <destination class="configured-produce-destination">
@@ -57,19 +48,17 @@
         <unique-id>doElasticINDEX</unique-id>
         <services>
           <standalone-producer>
+            <unique-id>index-elastic-document</unique-id>
             <connection class="shared-connection">
               <lookup-name>local-elasticsearch</lookup-name>
             </connection>
-            <producer class="es5-single-operation">
+            <producer class="elastic-rest-single-operation">
               <destination class="configured-produce-destination">
                 <destination>${elastic.speedtest.index}</destination>
               </destination>
-              <document-builder class="es5-json-document-builder">
-                <type-builder class="es5-configured-type">
-                  <type>${elastic.speedtest.type}</type>
-                </type-builder>
+              <document-builder class="elastic-json-document-builder">
               </document-builder>
-              <action class="es5-configured-action">
+              <action class="elastic-configured-action">
                 <action>INDEX</action>
               </action>
             </producer>

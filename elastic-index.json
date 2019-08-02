@@ -1,47 +1,44 @@
 {
   "mappings": {
-    "speedtest": {
-      "dynamic": "strict",
-      "properties": {
-        "bytes_sent": {
-          "type": "integer"
-        },
-        "bytes_received": {
-          "type": "integer"
-        },
-        "upload": {
-          "type": "double"
-        },
-        "download": {
-          "type": "double"
-        },
-        "ping": {
-          "type": "double"
-        },
-        "distance": {
-          "type": "double"
-        },
-        "latency": {
-          "type": "double"
-        },
-        "host": {
-          "type": "keyword"
-        },
-        "name": {
-          "type": "text"
-        },
-        "location": {
-          "type": "geo_point"
-        },
-        "serverid": {
-          "type": "keyword"
-        },
-        "sponsor": {
-          "type": "text"
-        },
-        "timestamp": {
-          "type": "date"
-        }
+    "properties": {
+      "bytes_sent": {
+        "type": "integer"
+      },
+      "bytes_received": {
+        "type": "integer"
+      },
+      "upload": {
+        "type": "double"
+      },
+      "download": {
+        "type": "double"
+      },
+      "ping": {
+        "type": "double"
+      },
+      "distance": {
+        "type": "double"
+      },
+      "latency": {
+        "type": "double"
+      },
+      "host": {
+        "type": "keyword"
+      },
+      "name": {
+        "type": "text"
+      },
+      "location": {
+        "type": "geo_point"
+      },
+      "serverid": {
+        "type": "keyword"
+      },
+      "sponsor": {
+        "type": "text"
+      },
+      "timestamp": {
+        "type": "date"
       }
     }
   }
