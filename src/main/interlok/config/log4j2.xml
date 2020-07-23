@@ -2,29 +2,30 @@
 <Configuration status="warn" monitorInterval="60" shutdownHook="disable">
   <Appenders>
 
-    <Console name="Console" target="SYSTEM_OUT">
+    <!-- <Console name="Console" target="SYSTEM_OUT">
       <PatternLayout>
         <Pattern>%-5p [%t] [%c{1.}] %m%n</Pattern>
       </PatternLayout>
-    </Console>
+    </Console> -->
 
-    <!--
-    <RollingFile name="RollingFile" fileName="logs/log4j2-adapter.log" filePattern="logs/log4j2-adapter-%d{yyyy-MM-dd}-%i.log.gz">
-      <PatternLayout>
-        <Pattern>%d{ISO8601} %-5p [%t] [%c.%M()] %m%n</Pattern>
-      </PatternLayout>
-      <Policies>
-        <OnStartupTriggeringPolicy />
-        <TimeBasedTriggeringPolicy />
-        <SizeBasedTriggeringPolicy size="250 MB"/>
-      </Policies>
-      <DefaultRolloverStrategy max="5" fileIndex="min"/>
-    </RollingFile>
-    -->
+    <Null name="NullAppender" />
+    <Routing name="RoutingIgnoreHealthcheck">
+      <Routes>
+        <Script name="RoutingInit" language="JavaScript"><![CDATA[
+            if (logEvent.getContextMap().get('ManagementComponent') == 'WorkflowHealthCheckComponent') {
+              "IGNORE"
+            } else {
+              "LOG";
+            }]]>
+        </Script>
+        <Route ref="RollingFile" key="LOG"/>
+        <Route ref="NullAppender" key="IGNORE"/>
+      </Routes>
+    </Routing>
 
     <RollingFile name="RollingFile" fileName="logs/adapter.log" filePattern="logs/adapter.log.%i">
       <PatternLayout>
-        <Pattern>%d{ISO8601} %-5p [%t] [%c.%M()] %m%n</Pattern>
+        <Pattern>%d{ISO8601} %-5p [%t][%c{1.}] %m%n</Pattern>
       </PatternLayout>
       <Policies>
         <OnStartupTriggeringPolicy />
@@ -61,11 +62,20 @@
     <Logger name="com.adaptris.core.marshaller.xstream" level="WARN"/>
     <Logger name="com.adaptris.adaptergui.util.ObjectConverter" level="FATAL"/>
     <Logger name="com.adaptris.adaptergui.util.ClassUtils" level="FATAL"/>
+    <Logger name="com.adaptris.core.util.DocumentBuilderFactoryBuilder" level="INFO"/>
+    <Logger name="com.adaptris.core.services.jdbc.SplittingXmlPayloadTranslator" level="DEBUG"/>
+    <Logger name="com.adaptris.core.fs.CompositeFileFilter" level="INFO"/>
+    <Logger name="com.adaptris.core.util.LifecycleHelper" level="INFO"/>
+    <Logger name="com.adaptris.core.ClosedState" level="INFO"/>
+    <Logger name="com.adaptris.core.InitialisedState" level="INFO"/>
+    <Logger name="com.adaptris.core.StartedState" level="INFO"/>
+    <Logger name="com.adaptris.core.StoppedState" level="INFO"/>
+
     <!-- Gets rid of elastic search request logging -->
     <Logger name="tracer" level="WARN"/>
 
     <Root level="TRACE">
-      <AppenderRef ref="RollingFile"/>
+      <AppenderRef ref="RoutingIgnoreHealthcheck"/>
     </Root>
   </Loggers>
 </Configuration>
