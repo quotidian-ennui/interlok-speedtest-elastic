@@ -1,0 +1,27 @@
+ext {
+  interlokParentGradle = "https://raw.githubusercontent.com/adaptris-labs/interlok-build-parent/master/build.gradle"
+  interlokVersion = '3.10-SNAPSHOT'
+}
+
+allprojects {
+  apply from: "${interlokParentGradle}"
+}
+
+configurations.all {
+  resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+}
+
+dependencies {
+  def interlokDeps = [ "core", "boot", "logging", "common", "core-apt",
+                "xinclude", "varsub", "csv", "json", "elastic-rest", "apache-http",
+                "expressions", "workflow-rest-services"
+                ] as String[]
+
+  interlokDeps.each {
+    add("interlokRuntime",  [group: "com.adaptris", name: "interlok-${it}", version: interlokVersion, changing: true])
+    // add("interlokJavadocs", [group: "com.adaptris", name: "interlok-${it}", version: interlokVersion, changing: true, classifier: "javadoc", transitive: false])
+  }
+
+  interlokRuntime ("org.fusesource.jansi:jansi:1.17.1")
+}
+

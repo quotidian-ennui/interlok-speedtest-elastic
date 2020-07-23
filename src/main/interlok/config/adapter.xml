@@ -1,5 +1,5 @@
 <adapter>
-  <unique-id>${adapter.unique.id}</unique-id>
+  <unique-id>speedtest-elastic</unique-id>
   <heartbeat-event-interval>
     <unit>HOURS</unit>
     <interval>24</interval>
@@ -36,7 +36,7 @@
             <source-json class="string-payload-data-input-parameter"/>
             <mapping-spec class="file-data-input-parameter">
               <destination class="configured-produce-destination">
-                <destination>${adapter.base.url}/config/interlok-speedtest-elastic/flatten-speedtest-output.json</destination>
+                <destination>${adapter.base.url}/config/flatten-speedtest-output.json</destination>
               </destination>
             </mapping-spec>
             <target-json class="string-payload-data-output-parameter"/>
@@ -115,7 +115,7 @@
           <unique-id>speedtest</unique-id>
           <consumer class="jetty-message-consumer">
             <destination class="configured-consume-destination">
-              <destination>/on-demand/speedtest/*</destination>
+              <destination>/speedtest/on-demand/*</destination>
             </destination>
           </consumer>
           <service-collection class="service-list">

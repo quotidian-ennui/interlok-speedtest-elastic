@@ -1,0 +1,15 @@
+{
+  "name" : "speedtest-elastic",
+  "variableSets" : {
+    "default" : { },
+  },
+  "variableXpaths" : {
+  },
+  "uidInXincludeCompntListFileName" : false,
+  "xincludeXpaths" : { },
+  "additionalFiles" : {
+    "bootstrap.properties" : "bootstrap.properties",
+    "log4j2.xml" : "log4j2.xml"
+  },
+  "structured" : true
+}
