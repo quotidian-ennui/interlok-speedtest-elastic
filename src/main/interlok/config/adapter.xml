@@ -84,9 +84,11 @@
           <service-collection class="service-list">
             <services>
               <shared-service>
+                <unique-id>scheduled_doSpeedtest</unique-id>
                 <lookup-name>doSpeedtest</lookup-name>
               </shared-service>
               <shared-service>
+                <unique-id>scheduled_doElasticINDEX</unique-id>
                 <lookup-name>doElasticINDEX</lookup-name>
               </shared-service>
             </services>
@@ -121,9 +123,11 @@
           <service-collection class="service-list">
             <services>
               <shared-service>
+                <unique-id>on_demand_doSpeedtest</unique-id>
                 <lookup-name>doSpeedtest</lookup-name>
               </shared-service>
               <shared-service>
+                <unique-id>on_demand_doElasticINDEX</unique-id>
                 <lookup-name>doElasticINDEX</lookup-name>
               </shared-service>
               <jetty-response-service>

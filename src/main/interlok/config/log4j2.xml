@@ -70,6 +70,7 @@
     <Logger name="com.adaptris.core.InitialisedState" level="INFO"/>
     <Logger name="com.adaptris.core.StartedState" level="INFO"/>
     <Logger name="com.adaptris.core.StoppedState" level="INFO"/>
+    <Logger name="com.adaptris.core.interceptor" level="INFO"/>
 
     <!-- Gets rid of elastic search request logging -->
     <Logger name="tracer" level="WARN"/>
