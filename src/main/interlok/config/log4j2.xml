@@ -18,12 +18,17 @@
               "LOG";
             }]]>
         </Script>
-        <Route ref="RollingFile" key="LOG"/>
+        <Route ref="Async" key="LOG"/>
         <Route ref="NullAppender" key="IGNORE"/>
       </Routes>
     </Routing>
 
-    <RollingFile name="RollingFile" fileName="logs/adapter.log" filePattern="logs/adapter.log.%i">
+    <Async name="Async">
+      <AppenderRef ref="LOGFILE"/>
+      <AppenderRef ref="ELASTIC"/>
+    </Async>
+
+    <RollingFile name="LOGFILE" fileName="logs/interlok.log" filePattern="logs/interlok.log.%i">
       <PatternLayout>
         <Pattern>%d{ISO8601} %-5p [%t][%c{1.}] %m%n</Pattern>
       </PatternLayout>
@@ -35,7 +40,19 @@
       <!-- fileIndex == min means that .1 is always the "newest" of the rolled-over files -->
       <DefaultRolloverStrategy max="9" fileIndex="min"/>
     </RollingFile>
+
+
+    <RollingFile name="ELASTIC" fileName="logs/interlok-elastic.log" filePattern="logs/interlok-elastic.log.%i">
+      <EcsLayout serviceName="speedtest"/>
+      <Policies>
+        <OnStartupTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="10 MB"/>
+      </Policies>
+      <DefaultRolloverStrategy max="9" fileIndex="min"/>
+    </RollingFile>
+
   </Appenders>
+
   <Loggers>
 
     <Logger name="org" level="WARN"/>
