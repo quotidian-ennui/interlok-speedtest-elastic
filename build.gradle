@@ -1,6 +1,6 @@
 ext {
   interlokParentGradle = "https://raw.githubusercontent.com/adaptris-labs/interlok-build-parent/master/build.gradle"
-  interlokVersion = '3.10-SNAPSHOT'
+  interlokVersion = '3.11-SNAPSHOT'
 }
 
 allprojects {
@@ -13,8 +13,8 @@ configurations.all {
 
 dependencies {
   def interlokDeps = [ "core", "boot", "logging", "common", "core-apt",
-                "xinclude", "varsub", "csv", "json", "elastic-rest", "apache-http",
-                "expressions", "workflow-rest-services"
+                "varsub", "csv", "json", "elastic-rest", "apache-http",
+                "expressions", "workflow-rest-services", "profiler"
                 ] as String[]
 
   interlokDeps.each {
@@ -23,6 +23,5 @@ dependencies {
   }
 
   interlokRuntime("co.elastic.logging:log4j2-ecs-layout:0.5.0")
-  interlokRuntime ("org.fusesource.jansi:jansi:1.17.1")
 }
 
