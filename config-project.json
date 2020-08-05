@@ -2,8 +2,15 @@
   "name" : "speedtest-elastic",
   "variableSets" : {
     "default" : { },
+    "local-dev" : { }
   },
   "variableXpaths" : {
+    "/adapter/shared-components/services/service-list[unique-id=\"doElasticINDEX\"]/services/standalone-producer[unique-id=\"index-elastic-document\"]/producer/index" : "${elastic.speedtest.index}",
+    "/adapter/shared-components/connections/elastic-rest-connection[unique-id=\"local-elasticsearch\"]/transport-url[1]" : "${local.elastic.transporturl}",
+    "/adapter/shared-components/services/service-list[unique-id=\"doSpeedtest\"]/services/system-command-executor[unique-id=\"execute-speedtest\"]/command-builder/executable-path" : "${speedtest-cli.path}",
+    "/adapter/shared-components/services/service-list[unique-id=\"doSpeedtest\"]/services/json-transform-service[unique-id=\"flatten-json-output\"]/mapping-spec/destination/destination" : "${adapter.base.url}/config/flatten-speedtest-output.json",
+    "/adapter/channel-list/channel[unique-id=\"SPEEDTEST_TO_ES\"]/auto-start" : "${channel.auto.start}",
+    "/adapter/channel-list/channel[unique-id=\"ON_DEMAND\"]/auto-start" : "${channel.auto.start}"
   },
   "uidInXincludeCompntListFileName" : false,
   "xincludeXpaths" : { },
@@ -11,5 +18,6 @@
     "bootstrap.properties" : "bootstrap.properties",
     "log4j2.xml" : "log4j2.xml"
   },
+  "optionalComponentsInUse" : [ "com.adaptris:interlok-elastic-common:3.11-SNAPSHOT", "com.adaptris:interlok-elastic-rest:3.11-SNAPSHOT", "com.adaptris:interlok-json:3.11-SNAPSHOT" ],
   "structured" : true
 }
