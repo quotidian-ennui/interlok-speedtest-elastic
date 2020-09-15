@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  interlok:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lewinc/speedtest-elastic
+    container_name: speedtest-elastic
+    hostname: speedtest-elastic
+    environment:
+      JVM_ARGS: -javaagent:lib/aspectjweaver.jar -Dorg.aspectj.weaver.loadtime.configuration=META-INF/profiler-logging-context.xml
+    ports:
+      - 8080:8080
