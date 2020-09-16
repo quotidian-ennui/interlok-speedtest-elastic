@@ -26,7 +26,8 @@ RUN yum -y update && \
     yum -y install initscripts curl unzip java-1.8.0-openjdk java-1.8.0-openjdk-devel && \
     yum -y install ${FILEBEATS_RPM} && \
     curl -fsSL -o /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.2.1/dumb-init_1.2.1_amd64 && \
-    chmod +x /usr/local/bin/dumb-init /docker-entrypoint.sh /interlok-entrypoint.sh && \
+    curl -fsSL -o /usr/local/bin/speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py && \
+    chmod +x /usr/local/bin/dumb-init /usr/local/bin/speedtest-cli /docker-entrypoint.sh /interlok-entrypoint.sh && \
     yum -y clean all && \
     mkdir -p /opt/interlok/logs
 
