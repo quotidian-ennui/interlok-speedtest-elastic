@@ -39,9 +39,7 @@
             <unique-id>flatten-json-output</unique-id>
             <source-json class="string-payload-data-input-parameter"/>
             <mapping-spec class="file-data-input-parameter">
-              <destination class="configured-produce-destination">
-                <destination>${adapter.base.url}/config/flatten-speedtest-output.json</destination>
-              </destination>
+              <url>${adapter.base.url}/config/flatten-speedtest-output.json</url>
             </mapping-spec>
             <target-json class="string-payload-data-output-parameter"/>
             <metadata-filter class="remove-all-metadata-filter"/>
