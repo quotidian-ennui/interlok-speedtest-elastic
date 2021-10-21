@@ -1,6 +1,9 @@
 name: check
 
-on: [push]
+on:
+  push:
+  schedule:
+    - cron: '15 01 * * SAT'
 
 jobs:
   build:
@@ -36,4 +39,4 @@ jobs:
           ${{ runner.os }}-gradle-cache-
     - name: Gradle Test
       run: |
-        ./gradlew -Djava.security.egd=file:/dev/./urandom -Dorg.gradle.console=plain --no-daemon check
+        ./gradlew -Dorg.gradle.console=plain --no-daemon check
