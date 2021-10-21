@@ -39,4 +39,4 @@ jobs:
           ${{ runner.os }}-gradle-cache-
     - name: Gradle Test
       run: |
-        ./gradlew -Dorg.gradle.console=plain --no-daemon check
+        ./gradlew -Dorg.gradle.console=plain -Dpolyglot.js.nashorn-compat=true -Dpolyglot.engine.WarnInterpreterOnly=false --no-daemon check
