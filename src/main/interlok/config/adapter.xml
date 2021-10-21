@@ -121,7 +121,6 @@
           <producer class="null-message-producer">
             <unique-id>trusting-saha</unique-id>
           </producer>
-          <produce-exception-handler class="null-produce-exception-handler"/>
           <unique-id>speedtest-cli</unique-id>
           <message-metrics-interceptor>
             <unique-id>speedtest-cli-MessageMetrics</unique-id>
@@ -177,7 +176,6 @@
           <producer class="null-message-producer">
             <unique-id>drunk-pare</unique-id>
           </producer>
-          <produce-exception-handler class="null-produce-exception-handler"/>
           <unique-id>speedtest</unique-id>
           <message-metrics-interceptor>
             <unique-id>speedtest-MessageMetrics</unique-id>

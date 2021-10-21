@@ -1,7 +1,7 @@
 ext {
   interlokParentGradle = "https://raw.githubusercontent.com/adaptris/interlok-build-parent/master/v4/build.gradle"
-  interlokVersion = '4.2-SNAPSHOT'
-  graalvmVersion="21.1.0"
+  interlokVersion = '4.3-SNAPSHOT'
+  graalvmVersion="21.2.0"
 }
 
 allprojects {
@@ -13,17 +13,28 @@ configurations.all {
 }
 
 dependencies {
-  def interlokDeps = [ "core", "boot", "logging", "common", "core-apt",
-                "varsub", "csv", "json", "elastic-rest", "apache-http",
-                "expressions", "rest-health-check", "profiler"
-                ] as String[]
+  // def interlokDeps = [ "core", "boot", "logging", "common", "core-apt",
+  //               "varsub", "csv", "json", "elastic-rest", "apache-http",
+  //               "expressions", "rest-health-check", "profiler"
+  //               ] as String[]
 
-  interlokDeps.each {
-    add("interlokRuntime",  [group: "com.adaptris", name: "interlok-${it}", version: interlokVersion, changing: true])
-    // add("interlokJavadocs", [group: "com.adaptris", name: "interlok-${it}", version: interlokVersion, changing: true, classifier: "javadoc", transitive: false])
-  }
+  // interlokDeps.each {
+  //   add("interlokRuntime",  [group: "com.adaptris", name: "interlok-${it}", version: interlokVersion, changing: true])
+  //   // add("interlokJavadocs", [group: "com.adaptris", name: "interlok-${it}", version: interlokVersion, changing: true, classifier: "javadoc", transitive: false])
+  // }
 
-  interlokRuntime("co.elastic.logging:log4j2-ecs-layout:0.5.0")
+  // Explicit for dependabot.
+  interlokRuntime ("com.adaptris:interlok-csv:$interlokVersion") { changing=true }
+  interlokRuntime ("com.adaptris:interlok-json:$interlokVersion") { changing=true }
+  interlokRuntime ("com.adaptris:interlok-elastic-rest:$interlokVersion") { changing=true }
+  interlokRuntime ("com.adaptris:interlok-apache-http:$interlokVersion") { changing=true }
+  interlokRuntime ("com.adaptris:interlok-expressions:$interlokVersion") { changing=true }
+  interlokRuntime ("com.adaptris:interlok-rest-health-check:$interlokVersion") { changing=true }
+  interlokRuntime ("com.adaptris:interlok-profiler:$interlokVersion") { changing=true }
+
+  interlokRuntime ("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.0")
+  interlokRuntime ("com.fasterxml.jackson.core:jackson-databind:2.13.0")
+  interlokRuntime ("co.elastic.logging:log4j2-ecs-layout:0.5.0")
   interlokRuntime ("org.graalvm.sdk:graal-sdk:$graalvmVersion")
   interlokRuntime ("org.graalvm.js:js:$graalvmVersion")
   interlokRuntime ("org.graalvm.js:js-scriptengine:$graalvmVersion")
