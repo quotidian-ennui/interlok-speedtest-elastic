@@ -40,4 +40,4 @@ jobs:
     - name: Gradle Test        
       env:
         JAVA_TOOL_OPTIONS: -Dpolyglot.js.nashorn-compat=true -Dpolyglot.engine.WarnInterpreterOnly=false     
-      run: ./gradlew -Dorg.gradle.console=plain -Dpolyglot.js.nashorn-compat=true -Dpolyglot.engine.WarnInterpreterOnly=false --no-daemon check
+      run: ./gradlew -Dorg.gradle.console=plain --no-daemon check
