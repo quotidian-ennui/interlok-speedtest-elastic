@@ -10,6 +10,9 @@ allprojects {
 
 configurations.all {
   resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+  exclude group: 'javax', module: 'javaee-api'
+  exclude group: 'org.apache.geronimo.specs', module: 'geronimo-jms_2.0_spec'
+  exclude group: 'org.hibernate.javax.persistence', module: 'hibernate-jpa-2.1-api'
 }
 
 dependencies {
@@ -31,6 +34,9 @@ dependencies {
   interlokRuntime ("com.adaptris:interlok-expressions:$interlokVersion") { changing=true }
   interlokRuntime ("com.adaptris:interlok-rest-health-check:$interlokVersion") { changing=true }
   interlokRuntime ("com.adaptris:interlok-profiler:$interlokVersion") { changing=true }
+
+  interlokRuntime ("jakarta.jms:jakarta.jms-api:2.0.3")
+  interlokRuntime ("jakarta.persistence:jakarta.persistence-api:2.2.3")
 
   interlokRuntime ("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.0")
   interlokRuntime ("com.fasterxml.jackson.core:jackson-databind:2.13.0")
