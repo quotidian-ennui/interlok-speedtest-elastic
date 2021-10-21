@@ -1,4 +1,4 @@
-# interlok-speedtest-elastic ![Interlok Hammer](https://img.shields.io/badge/certified-interlok%20hammer-red.svg)
+# interlok-speedtest-elastic ![Interlok Hammer](https://img.shields.io/badge/certified-interlok%20hammer-red.svg) [![Actions Status](https://github.com/quotidian-ennui/interlok-speedtest-elastic/workflows/check/badge.svg)](https://github.com/quotidian-ennui/interlok-speedtest-elastic/actions)
 
 This is clearly a case of when all you have is a hammer; everything looks like a nail...
 
