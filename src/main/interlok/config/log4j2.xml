@@ -23,12 +23,7 @@
       </Routes>
     </Routing>
 
-    <Async name="Async">
-      <AppenderRef ref="LOGFILE"/>
-      <AppenderRef ref="ELASTIC"/>
-    </Async>
-
-    <RollingFile name="LOGFILE" fileName="logs/interlok.log" filePattern="logs/interlok.log.%i">
+    <RollingFile name="LOGFILE" fileName="logs/interlok.log" filePattern="logs/interlok.log.%i" ignoreExceptions="true" createOnDemand="true">
       <PatternLayout>
         <Pattern>%d{ISO8601} %-5p [%t][%c{1.}] %m%n</Pattern>
       </PatternLayout>
@@ -42,7 +37,7 @@
     </RollingFile>
 
 
-    <RollingFile name="ELASTIC" fileName="logs/interlok-elastic.log" filePattern="logs/interlok-elastic.log.%i">
+    <RollingFile name="ELASTIC" fileName="logs/interlok-elastic.log" filePattern="logs/interlok-elastic.log.%i" ignoreExceptions="true" createOnDemand="true">
       <EcsLayout serviceName="speedtest"/>
       <Policies>
         <OnStartupTriggeringPolicy />
@@ -51,6 +46,10 @@
       <DefaultRolloverStrategy max="9" fileIndex="min"/>
     </RollingFile>
 
+    <Async name="Async">
+      <AppenderRef ref="LOGFILE"/>
+      <AppenderRef ref="ELASTIC"/>
+    </Async>
   </Appenders>
 
   <Loggers>

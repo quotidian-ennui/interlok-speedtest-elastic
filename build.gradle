@@ -1,5 +1,5 @@
 ext {
-  interlokParentGradle = "https://raw.githubusercontent.com/adaptris/interlok-build-parent/master/v4/build.gradle"
+  interlokParentGradle = "https://raw.githubusercontent.com/adaptris/interlok-build-parent/develop/v4/build.gradle"
   interlokVersion = '4.4-SNAPSHOT'
   graalvmVersion="21.3.0"
 }
@@ -45,4 +45,10 @@ dependencies {
   interlokRuntime ("org.graalvm.js:js:$graalvmVersion")
   interlokRuntime ("org.graalvm.js:js-scriptengine:$graalvmVersion")
 }
+
+task deleteGeneratedFiles(type: Delete) {
+  delete "logs"
+}
+
+clean.dependsOn deleteGeneratedFiles
 
