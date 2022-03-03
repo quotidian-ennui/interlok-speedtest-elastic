@@ -12,7 +12,8 @@ ext {
       return mavenMetadata.versioning.latest.text()
     }
   ]
-  interlokVersion = project.findProperty('interlokVersion') ?: interlokVersioning.latestSnapshot()
+  // interlokVersion = project.findProperty('interlokVersion') ?: interlokVersioning.latestSnapshot()
+  interlokVersion = "4.5-SNAPSHOT"
   graalvmVersion="22.0.0.2"
 }
 
