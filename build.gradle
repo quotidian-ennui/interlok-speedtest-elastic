@@ -51,7 +51,7 @@ dependencies {
   interlokRuntime ("jakarta.jms:jakarta.jms-api:2.0.3")
   // interlokRuntime ("jakarta.persistence:jakarta.persistence-api:2.2.3")
 
-  interlokRuntime ("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.1")
+  interlokRuntime ("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.2")
   interlokRuntime ("com.fasterxml.jackson.core:jackson-databind:2.13.2")
   interlokRuntime ("co.elastic.logging:log4j2-ecs-layout:1.3.2")
   interlokRuntime ("org.graalvm.sdk:graal-sdk:$graalvmVersion")
