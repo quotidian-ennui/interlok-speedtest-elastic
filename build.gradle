@@ -61,7 +61,7 @@ dependencies {
   // interlokRuntime ("jakarta.persistence:jakarta.persistence-api:2.2.3")
 
   interlokRuntime ("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.2")
-  interlokRuntime ("com.fasterxml.jackson.core:jackson-databind:2.13.2")
+  interlokRuntime ("com.fasterxml.jackson.core:jackson-databind:2.13.2.1")
   interlokRuntime ("co.elastic.logging:log4j2-ecs-layout:1.3.2")
   if (!javaProvider.isGraalVM()) {
     // We assume that in this instance you're building with the
