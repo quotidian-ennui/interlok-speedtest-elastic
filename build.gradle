@@ -12,6 +12,15 @@ ext {
       return mavenMetadata.versioning.latest.text()
     }
   ]
+  javaProvider= [
+    vendor: { ->
+      return System.getProperty("java.vendor");
+    },
+
+    isGraalVM: { ->
+      return javaProvider.vendor().toLowerCase().contains("graalvm");
+    }
+  ]
   // interlokVersion = project.findProperty('interlokVersion') ?: interlokVersioning.latestSnapshot()
   interlokVersion = "4.5-SNAPSHOT"
   graalvmVersion="22.0.0.2"
@@ -54,9 +63,13 @@ dependencies {
   interlokRuntime ("com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.13.2")
   interlokRuntime ("com.fasterxml.jackson.core:jackson-databind:2.13.2")
   interlokRuntime ("co.elastic.logging:log4j2-ecs-layout:1.3.2")
-  interlokRuntime ("org.graalvm.sdk:graal-sdk:$graalvmVersion")
-  interlokRuntime ("org.graalvm.js:js:$graalvmVersion")
-  interlokRuntime ("org.graalvm.js:js-scriptengine:$graalvmVersion")
+  if (!javaProvider.isGraalVM()) {
+    // We assume that in this instance you're building with the
+    // JVM you expect to run with, might be potentially incorrect.
+    interlokRuntime ("org.graalvm.sdk:graal-sdk:$graalvmVersion")
+    interlokRuntime ("org.graalvm.js:js:$graalvmVersion")
+    interlokRuntime ("org.graalvm.js:js-scriptengine:$graalvmVersion")
+  }
 }
 
 task deleteGeneratedFiles(type: Delete) {
