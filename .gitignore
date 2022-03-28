@@ -27,3 +27,4 @@ bin
 .gradle
 gradle.properties
 variables-private.properties
+log4j2.xml.dev
