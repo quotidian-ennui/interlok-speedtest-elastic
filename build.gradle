@@ -22,7 +22,7 @@ ext {
     }
   ]
   // interlokVersion = project.findProperty('interlokVersion') ?: interlokVersioning.latestSnapshot()
-  interlokVersion = "4.5-SNAPSHOT"
+  interlokVersion = "4.5.0-RELEASE"
   graalvmVersion="22.1.0.1"
 }
 
